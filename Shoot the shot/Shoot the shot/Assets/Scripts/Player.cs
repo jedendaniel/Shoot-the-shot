@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
-
-
+    
     [SerializeField]
     Rigidbody ball;
     
@@ -18,13 +17,15 @@ public class Player : MonoBehaviour {
     [SerializeField]
     Button startButton;
     Text startButtonText;
-
-
+    
     Vector2 spawnRectStart = new Vector2(-5,2);
     Vector2 spawnRectEnd = new Vector2(10,6);
     float spin = -10;
     float forceMultiplier = 2.75f;
-
+    int leftBound = -20;
+    int rightBound = 20;
+    int upBound = 20;
+    
     int points;
     float timeLeft;
 
@@ -55,6 +56,7 @@ public class Player : MonoBehaviour {
             timeText.text = 0.ToString();
             EndGame();
         }
+        if (IsOutOfBounds()) SpawnBall();
 	}
 
     Vector3 GetPointWithRaycast()
@@ -90,14 +92,23 @@ public class Player : MonoBehaviour {
         resultText.text = "Result: " + points.ToString();
         SpawnBall();
         Time.timeScale = 1;
-        timeLeft = 60;
+        timeLeft = 10;
         points = 0;
     }
 
     void EndGame()
     {
         Time.timeScale = 0;
-        resultText.transform.position = Vector3.zero;
+        resultText.transform.position = new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2);
         startButton.gameObject.SetActive(true);
+    }
+    
+    bool IsOutOfBounds()
+    {
+        if (ball.position.x < leftBound
+            || ball.position.y > rightBound
+            || ball.position.z > upBound)
+            return true;
+        return false;
     }
 }
