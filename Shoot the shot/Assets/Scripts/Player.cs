@@ -7,41 +7,35 @@ public class Player : MonoBehaviour {
     
     [SerializeField]
     Rigidbody ball;
-    
+    [SerializeField]
+    Transform basketPosition;
     [SerializeField]
     Text timeText;
     [SerializeField]
     Text resultText;
-
     [SerializeField]
     Button startButton;
-    Text startButtonText;
+    
+    static Vector2 spawnRectStart = new Vector2(-10,4);
+    static Vector2 spawnRectEnd = new Vector2(11,7);
+    static float spin = -10;
+    static float forceMultiplier = 2.75f;
+    static int leftBound = -20;
+    static int rightBound = 20;
+    static int upBound = 20;
+    static int downBound = 2;
+    static int fulTime = 60;
 
-    [SerializeField]
-    Transform basketPosition;
-
-    Vector2 spawnRectStart = new Vector2(-10,4);
-    Vector2 spawnRectEnd = new Vector2(11,7);
-    float spin = -10;
-    float forceMultiplier = 2.75f;
-    int leftBound = -20;
-    int rightBound = 20;
-    int upBound = 20;
-    int downBound = 2;
-    int fulTime = 60;
     List<CheckPoint> checkPoints = new List<CheckPoint>();
-    float shootDistance;
-    bool clockTicking;
-
     float points;
     float timeLeft;
-    private Vector3 resultPosition;
+    float shootDistance;
+    bool clockTicking;
+    Vector3 resultPosition;
 
     void Start () {
-        Time.timeScale = 0;
+        SpawnBall();
         resultPosition = resultText.transform.position;
-        resultText.text = "";
-        startButtonText = startButton.GetComponentInChildren<Text>();
         startButton.onClick.AddListener(StartGame);
     }
 	
@@ -126,22 +120,19 @@ public class Player : MonoBehaviour {
 
     void StartGame()
     {
-        clockTicking = true;
-        startButton.gameObject.SetActive(false);
-        resultText.transform.position = resultPosition;
-        points = 0;
-        resultText.text = "Result: " + points.ToString();
-        SpawnBall();
-        Time.timeScale = 1;
         timeLeft = fulTime;
         points = 0;
+        resultText.transform.position = resultPosition;
+        resultText.text = "Result: " + points.ToString();
+        startButton.gameObject.SetActive(false);
+        SpawnBall();
+        clockTicking = true;
     }
 
     void EndGame()
     {
         clockTicking = false;
-        Time.timeScale = 0;
-        resultText.transform.position = new Vector3(Camera.main.pixelWidth/2, Camera.main.pixelHeight/2);
+        resultText.transform.position = new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2);
         startButton.gameObject.SetActive(true);
     }
     

@@ -1186,10 +1186,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ball: {fileID: 875272116}
+  basketPosition: {fileID: 1185350240}
   timeText: {fileID: 623379965}
   resultText: {fileID: 1833888363}
   startButton: {fileID: 1449179464}
-  basketPosition: {fileID: 1185350240}
 --- !u!4 &1501456156
 Transform:
   m_ObjectHideFlags: 0
@@ -1374,7 +1374,7 @@ GameObject:
   - component: {fileID: 1833888364}
   - component: {fileID: 1833888363}
   m_Layer: 5
-  m_Name: Points
+  m_Name: Result
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1430,7 +1430,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Points:'
+  m_Text: 
 --- !u!222 &1833888364
 CanvasRenderer:
   m_ObjectHideFlags: 0
